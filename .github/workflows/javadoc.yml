@@ -22,7 +22,7 @@ jobs:
       run: rm -rf Slimefun4/
 
     - name: Clone repository
-      run: git clone -b dev --single-branch https://github.com/SlimefunGuguProject/Slimefun4
+      run: git clone -b dev --single-branch --depth=1 https://github.com/SlimefunGuguProject/Slimefun4
 
     - name: Set up Java 17 JDK
       uses: actions/setup-java@v3.11.0
