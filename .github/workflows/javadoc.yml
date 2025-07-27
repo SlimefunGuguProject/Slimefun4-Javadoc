@@ -38,13 +38,13 @@ jobs:
     # Move to keep old dir and not need to rewrite everything
     - run: rm -rf Slimefun4/docs && mv Slimefun4/javadocs Slimefun4/docs
 
-    - name: Push to repository
-      uses: github-actions-x/commit@v2.9
+    - name: Push Javadoc
+      uses: EndBug/add-and-commit@v9.1.4
       with:
         github-token: ${{ secrets.ACCESS_TOKEN }}
-        push-branch: 'master'
-        commit-message: 'Updated Javadocs'
-        force-add: 'true'
-        files: Slimefun4/docs
-        name: noraincity-bot
-        email: ${{ secrets.BOT_EMAIL }}
+        add: 'Slimefun4/docs'
+        message: 'Update javadoc'
+        author_name: 'noraincity-bot'
+        author_email: ${{ secrets.BOT_EMAIL }}
+        committer_name: 'noraincity-bot'
+        committer_email: ${{ secrets.BOT_EMAIL }}
