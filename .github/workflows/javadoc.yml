@@ -1,0 +1,50 @@
+name: Javadoc Deployer
+
+on:
+  # Manual workflow trigger
+  workflow_dispatch: {}
+
+  # Run every ~12 hours
+  schedule:
+    - cron: '0 */12 * * *'
+
+jobs:
+  javadocs:
+
+    name: Generate javadocs
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Clean up folder
+      run: rm -rf Slimefun4/
+
+    - name: Clone repository
+      run: git clone -b release --single-branch https://github.com/SlimefunGuguProject/Slimefun4
+
+    - name: Set up Java 17 JDK
+      uses: actions/setup-java@v3.11.0
+      with:
+        distribution: 'zulu'
+        java-version: '21'
+        java-package: jdk
+        architecture: x64
+
+    - name: Generate Javadocs
+      run: cd Slimefun4 && mvn javadoc:javadoc
+
+    # Move to keep old dir and not need to rewrite everything
+    - run: rm -rf Slimefun4/docs && mv Slimefun4/javadocs Slimefun4/docs
+
+    - name: Push to repository
+      uses: github-actions-x/commit@v2.9
+      with:
+        github-token: ${{ secrets.ACCESS_TOKEN }}
+        push-branch: 'master'
+        commit-message: 'Updated Javadocs'
+        force-add: 'true'
+        files: Slimefun4/docs
+        name: noraincity-bot
+        email: ${{ secrets.BOT_EMAIL }}
