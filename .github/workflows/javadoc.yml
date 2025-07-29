@@ -24,7 +24,7 @@ jobs:
     - name: Clone repository
       run: git clone -b dev --single-branch --depth=1 https://github.com/SlimefunGuguProject/Slimefun4
 
-    - name: Set up Java 17 JDK
+    - name: Set up Java 21 JDK
       uses: actions/setup-java@v3.11.0
       with:
         distribution: 'zulu'
@@ -36,13 +36,14 @@ jobs:
       run: cd Slimefun4 && mvn javadoc:javadoc
 
     # Move to keep old dir and not need to rewrite everything
-    - run: rm -rf Slimefun4/docs && mv Slimefun4/javadocs Slimefun4/docs
+    - run: rm -rf Slimefun4/docs && mv Slimefun4/javadocs/apidocs Slimefun4/docs
 
     - name: Push Javadoc
       uses: EndBug/add-and-commit@v9.1.4
       with:
-        github-token: ${{ secrets.ACCESS_TOKEN }}
+        github_token: ${{ secrets.ACCESS_TOKEN }}
         add: 'Slimefun4/docs'
+        push: 'origin master --force'
         message: 'Update javadoc'
         author_name: 'noraincity-bot'
         author_email: ${{ secrets.BOT_EMAIL }}
