@@ -9,6 +9,7 @@ city.norain.slimefun4.utils
 com.xzavier0722.mc.plugin.slimefun4.autocrafter
 com.xzavier0722.mc.plugin.slimefun4.chat
 com.xzavier0722.mc.plugin.slimefun4.chat.listener
+com.xzavier0722.mc.plugin.slimefun4.storage
 com.xzavier0722.mc.plugin.slimefun4.storage.adapter
 com.xzavier0722.mc.plugin.slimefun4.storage.adapter.mysql
 com.xzavier0722.mc.plugin.slimefun4.storage.adapter.postgresql
