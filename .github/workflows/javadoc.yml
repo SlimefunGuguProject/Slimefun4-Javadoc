@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v6
 
     - name: Clean up folder
       run: rm -rf Slimefun4/
@@ -33,13 +33,13 @@ jobs:
         architecture: x64
 
     - name: Generate Javadocs
-      run: cd Slimefun4 && mvn javadoc:javadoc
+      run: cd Slimefun4 && chmod +x ./gradlew && ./gradlew javadoc
 
     # Move to keep old dir and not need to rewrite everything
-    - run: rm -rf Slimefun4/docs && mv Slimefun4/javadocs/apidocs Slimefun4/docs
+    - run: rm -rf Slimefun4/docs && mv Slimefun4/build/docs/javadoc Slimefun4/docs
 
     - name: Push Javadoc
-      uses: EndBug/add-and-commit@v9.1.4
+      uses: EndBug/add-and-commit@v10
       with:
         github_token: ${{ secrets.ACCESS_TOKEN }}
         add: 'Slimefun4/docs'
